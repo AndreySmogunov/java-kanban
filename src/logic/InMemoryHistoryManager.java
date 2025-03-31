@@ -1,3 +1,4 @@
+// logic/InMemoryHistoryManager.java
 package logic;
 
 import models.Task;
@@ -5,7 +6,10 @@ import models.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+ sprint_6-solution
 import java.util.Map;
+import java.util.Iterator;
+ main
 
 public class InMemoryHistoryManager implements HistoryManager {
 
@@ -104,6 +108,17 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (taskMap.containsKey(id)) {
             Node nodeToRemove = taskMap.get(id);
             history.removeNode(nodeToRemove);
+        }
+    }
+
+    @Override
+    public void remove(int id) {
+        Iterator<Task> iterator = history.iterator();
+        while (iterator.hasNext()) {
+            Task task = iterator.next();
+            if (task.getId() == id) {
+                iterator.remove();
+            }
         }
     }
 
