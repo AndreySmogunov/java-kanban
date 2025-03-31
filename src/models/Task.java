@@ -63,4 +63,7 @@ public class Task {
 
     public void setName(String modifiedTask) {
     }
+
+    public void setDescription(String modifiedDescription) {
+    }
 }
