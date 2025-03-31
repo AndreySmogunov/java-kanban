@@ -51,6 +51,10 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
 
         public void removeNode(Node node) {
+            if (node == null) {
+                return; // Handle null node case
+            }
+
             int taskId = node.data.getId();
 
             if (node == head && node == tail) {
@@ -58,10 +62,14 @@ public class InMemoryHistoryManager implements HistoryManager {
                 tail = null;
             } else if (node == head) {
                 head = node.next;
-                head.prev = null;
+                if (head != null) {
+                    head.prev = null;
+                }
             } else if (node == tail) {
                 tail = node.prev;
-                tail.next = null;
+                if (tail != null) {
+                    tail.next = null;
+                }
             } else {
                 node.prev.next = node.next;
                 node.next.prev = node.prev;
@@ -72,9 +80,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
         public void removeFirst() {
             if (head != null) {
-                int taskId = head.data.getId();
                 removeNode(head);
-                taskMap.remove(taskId);
 
             }
         }
@@ -104,27 +110,15 @@ public class InMemoryHistoryManager implements HistoryManager {
     public void remove(int id) {
         if (taskMap.containsKey(id)) {
             Node nodeToRemove = taskMap.get(id);
-            history.removeNode(nodeToRemove);
-        }
-    }
-
-    @Override
-    public void remove(int id) {
-        Iterator<Task> iterator = history.iterator();
-        while (iterator.hasNext()) {
-            Task task = iterator.next();
-            if (task.getId() == id) {
-                iterator.remove();
+            if (nodeToRemove != null) {
+                history.removeNode(nodeToRemove);
             }
+            taskMap.remove(id);
         }
     }
 
     @Override
     public List<Task> getHistory() {
         return history.getTasks();
-    }
-
-    public void removeNode(Node node) {
-        history.removeNode(node);
     }
 }
