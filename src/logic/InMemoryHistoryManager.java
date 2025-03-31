@@ -1,9 +1,11 @@
+// logic/InMemoryHistoryManager.java
 package logic;
 
 import models.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 public class InMemoryHistoryManager implements HistoryManager {
     private final List<Task> history = new ArrayList<>();
@@ -14,6 +16,17 @@ public class InMemoryHistoryManager implements HistoryManager {
         history.add(task);
         if (history.size() > HISTORY_SIZE) {
             history.remove(0);
+        }
+    }
+
+    @Override
+    public void remove(int id) {
+        Iterator<Task> iterator = history.iterator();
+        while (iterator.hasNext()) {
+            Task task = iterator.next();
+            if (task.getId() == id) {
+                iterator.remove();
+            }
         }
     }
 
