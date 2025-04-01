@@ -49,12 +49,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Задача{" +
-                "название='" + name + '\'' +
-                ", описание='" + description + '\'' +
-                ", id=" + id +
-                ", статус=" + status +
-                '}';
+        return null;
     }
 
     public void setId(int id) {
@@ -62,5 +57,8 @@ public class Task {
     }
 
     public void setName(String modifiedTask) {
+    }
+
+    public void setDescription(String modifiedDescription) {
     }
 }
