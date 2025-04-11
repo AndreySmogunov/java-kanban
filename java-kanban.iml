@@ -33,6 +33,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+sprint_6-solution
     <orderEntry type="module-library">
       <library name="JUnit4">
         <CLASSES>
@@ -43,5 +44,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+main
   </component>
 </module>
