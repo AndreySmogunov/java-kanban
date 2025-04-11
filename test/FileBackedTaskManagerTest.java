@@ -1,4 +1,3 @@
-// src/test/java/test/FileBackedTaskManagerTest.java
 package test;
 
 import logic.FileBackedTaskManager;
