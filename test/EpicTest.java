@@ -1,5 +1,3 @@
-package test;
-
 import models.Epic;
 import models.TaskStatus;
 import org.junit.jupiter.api.Test;
