@@ -4,10 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Epic extends Task {
-    private final List<Integer> subtaskIds = new ArrayList<>();
+    private List<Integer> subtaskIds;
 
     public Epic(String name, String description) {
         super(name, description);
+        this.subtaskIds = new ArrayList<>();
+    }
+
+    public Epic(int id, String name, String description, TaskStatus status) {
+        super(name, description);
+        this.setId(id);
+        this.setStatus(status);
+        this.subtaskIds = new ArrayList<>();
     }
 
     public List<Integer> getSubtaskIds() {
@@ -15,21 +23,15 @@ public class Epic extends Task {
     }
 
     public void addSubtaskId(int subtaskId) {
-        this.subtaskIds.add(subtaskId);
+        subtaskIds.add(subtaskId);
     }
 
-    public void removeSubtaskId(Integer subtaskId) {
-        this.subtaskIds.remove(subtaskId);
+    public void removeSubtaskId(int subtaskId) {
+        subtaskIds.remove(Integer.valueOf(subtaskId));
     }
 
     @Override
     public String toString() {
-        return "Эпик{" +
-                "название='" + getName() + '\'' +
-                ", описание='" + getDescription() + '\'' +
-                ", id=" + getId() +
-                ", статус=" + getStatus() +
-                ", подзадача=" + subtaskIds +
-                '}';
+        return String.format("%d,%s,%s,%s,%s,", getId(), "EPIC", getName(), getStatus(), getDescription());
     }
 }

@@ -5,6 +5,7 @@ import logic.TaskManager;
 import models.Epic;
 import models.Subtask;
 import models.Task;
+import models.TaskStatus;
 
 import java.util.List;
 import java.util.Scanner;
@@ -38,21 +39,23 @@ public class Main {
     public static void main(String[] args) {
         TaskManager taskManager = Managers.getDefault();
 
-        Task task1 = new Task("Задача 1", "Описание задачи 1");
+        int id = 0;
+        TaskStatus status = null;
+        Task task1 = new Task(id, "Задача 1", "Описание задачи 1", status);
         taskManager.createTask(task1);
-        Task task2 = new Task("Задача 2", "Описание задачи 2");
+        Task task2 = new Task(id, "Задача 2", "Описание задачи 2", status);
         taskManager.createTask(task2);
 
-        Epic epic1 = new Epic("Эпик 1", "Описание эпика 1");
+        Epic epic1 = new Epic(id, "Эпик 1", "Описание эпика 1", status);
         taskManager.createEpic(epic1);
 
-        Subtask subtask1 = new Subtask("Подзадача 1", "Подзадача эпика 1", epic1.getId());
+        Subtask subtask1 = new Subtask(id, "Подзадача 1", "Подзадача эпика 1", status, epic1.getId());
         try {
             taskManager.createSubtask(subtask1);
         } catch (IllegalArgumentException e) {
             System.out.println("Ошибка при создании подзадачи: " + e.getMessage());
         }
-        Subtask subtask2 = new Subtask("Подзадача 2", "Подзадача эпика 1", epic1.getId());
+        Subtask subtask2 = new Subtask(id, "Подзадача 2", "Подзадача эпика 1", status, epic1.getId());
 
         try {
             taskManager.createSubtask(subtask2);
@@ -61,9 +64,9 @@ public class Main {
         }
 
 
-        Epic epic2 = new Epic("Эпик 2", "Описание эпика 2");
+        Epic epic2 = new Epic(id, "Эпик 2", "Описание эпика 2", status);
         taskManager.createEpic(epic2);
-        Subtask subtask3 = new Subtask("Подзадача 3", "Подзадача эпика 2", epic2.getId());
+        Subtask subtask3 = new Subtask(id, "Подзадача 3", "Подзадача эпика 2", status, epic2.getId());
         try {
             taskManager.createSubtask(subtask3);
         } catch (IllegalArgumentException e) {
@@ -154,7 +157,9 @@ public class Main {
         String name = scanner.nextLine();
         System.out.println("Введите описание задачи:");
         String description = scanner.nextLine();
-        Task task = new Task(name, description);
+        int id = 0;
+        TaskStatus status = null;
+        Task task = new Task(id, name, description, status);
         taskManager.createTask(task);
         System.out.println("Задача добавлена с ID: " + task.getId());
     }
@@ -164,7 +169,9 @@ public class Main {
         String name = scanner.nextLine();
         System.out.println("Введите описание эпика:");
         String description = scanner.nextLine();
-        Epic epic = new Epic(name, description);
+        int id = 0;
+        TaskStatus status = null;
+        Epic epic = new Epic(id, name, description, status);
         taskManager.createEpic(epic);
         System.out.println("Эпик добавлен с ID: " + epic.getId());
     }
@@ -178,7 +185,9 @@ public class Main {
         int epicId = scanner.nextInt();
         scanner.nextLine();
         try {
-            Subtask subtask = new Subtask(name, description, epicId);
+            int id = 0;
+            TaskStatus status = null;
+            Subtask subtask = new Subtask(id, name, description, status, epicId);
             taskManager.createSubtask(subtask);
             System.out.println("Подзадача добавлена с ID: " + subtask.getId());
         } catch (IllegalArgumentException e) {
