@@ -1,66 +1,77 @@
 package models;
 
-import java.util.Objects;
-
 public class Task {
+    private int id;
     private String name;
     private String description;
-    private int id;
-    private models.TaskStatus status;
+    private TaskStatus status;
 
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
-        this.status = models.TaskStatus.NEW;
+        this.status = TaskStatus.NEW;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
+    public Task(int id, String name, String description, TaskStatus status) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.status = status;
     }
 
     public int getId() {
         return id;
     }
 
-    public models.TaskStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(models.TaskStatus status) {
-        this.status = status;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Task task = (Task) o;
-        return id == task.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Задача{" +
-                "название='" + name + '\'' +
-                ", описание='" + description + '\'' +
-                ", id=" + id +
-                ", статус=" + status +
-                '}';
-    }
-
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setName(String modifiedTask) {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public TaskStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d,%s,%s,%s,%s,", id, "TASK", name, status, description);
+    }
+
+    public static Task fromString(String value) {
+        String[] fields = value.split(",");
+        int id = Integer.parseInt(fields[0]);
+        String type = fields[1];
+        String name = fields[2];
+        TaskStatus status = TaskStatus.valueOf(fields[3]);
+        String description = fields[4];
+
+        switch (type) {
+            case "EPIC":
+                return new Epic(id, name, description, status);
+            case "SUBTASK":
+                int epicId = Integer.parseInt(fields[5]);
+                return new Subtask(id, name, description, status, epicId);
+            default:
+                return new Task(id, name, description, status);
+        }
     }
 }

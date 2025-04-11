@@ -13,6 +13,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     private final Path filePath;
 
     public FileBackedTaskManager(Path filePath) {
+        super(new InMemoryHistoryManager());
         this.filePath = filePath;
         loadFromFile();
     }
