@@ -1,4 +1,3 @@
-// src/main/java/exceptions/ManagerSaveException.java
 package exceptions;
 
 public class ManagerSaveException extends RuntimeException {
