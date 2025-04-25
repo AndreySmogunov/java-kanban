@@ -1,4 +1,3 @@
-// src/main/java/models/Epic.java
 package models;
 
 import java.time.Duration;
@@ -56,6 +55,9 @@ public class Epic extends Task {
         this.startTime = null;
         this.endTime = null;
 
+        boolean allNew = true;
+        boolean allDone = true;
+
         for (Subtask subtask : subtasks) {
             this.duration = this.duration.plus(subtask.getDuration());
             if (this.startTime == null || subtask.getStartTime().isBefore(this.startTime)) {
@@ -64,6 +66,21 @@ public class Epic extends Task {
             if (this.endTime == null || subtask.getEndTime().isAfter(this.endTime)) {
                 this.endTime = subtask.getEndTime();
             }
+
+            if (subtask.getStatus() != TaskStatus.NEW) {
+                allNew = false;
+            }
+            if (subtask.getStatus() != TaskStatus.DONE) {
+                allDone = false;
+            }
+        }
+
+        if (allNew) {
+            this.setStatus(TaskStatus.NEW);
+        } else if (allDone) {
+            this.setStatus(TaskStatus.DONE);
+        } else {
+            this.setStatus(TaskStatus.IN_PROGRESS);
         }
     }
 
