@@ -111,6 +111,7 @@ public class Main {
             System.out.println("13. Обновить эпик");
             System.out.println("14. Обновить подзадачу");
             System.out.println("15. Изменить статус задачи");
+            System.out.println("16. Показать задачи по приоритету");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -161,6 +162,9 @@ public class Main {
                     break;
                 case 15:
                     changeTaskStatus(scanner, taskManager);
+                    break;
+                case 16:
+                    showPrioritizedTasks(taskManager);
                     break;
                 default:
                     System.out.println("Неверный выбор.");
@@ -349,5 +353,10 @@ public class Main {
         } else {
             System.out.println("Задача с таким ID не найдена.");
         }
+    }
+
+    private static void showPrioritizedTasks(TaskManager taskManager) {
+        System.out.println("Задачи по приоритету:");
+        taskManager.getPrioritizedTasks().forEach(System.out::println);
     }
 }
