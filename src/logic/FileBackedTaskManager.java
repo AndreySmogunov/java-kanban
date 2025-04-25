@@ -1,13 +1,16 @@
+// src/main/java/logic/FileBackedTaskManager.java
 package logic;
 
 import exceptions.ManagerSaveException;
 import models.Epic;
 import models.Subtask;
 import models.Task;
+import models.TaskStatus;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
     private final Path filePath;
@@ -57,24 +60,38 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     @Override
     public void createSubtask(Subtask subtask) {
         super.createSubtask(subtask);
+        updateEpicFields(subtask.getEpicId());
         save();
     }
 
     @Override
     public void updateSubtask(Subtask subtask) {
         super.updateSubtask(subtask);
+        updateEpicFields(subtask.getEpicId());
         save();
     }
 
     @Override
     public void deleteSubtaskById(int id) {
-        super.deleteSubtaskById(id);
-        save();
+        Subtask subtask = getSubtaskById(id);
+        if (subtask != null) {
+            super.deleteSubtaskById(id);
+            updateEpicFields(subtask.getEpicId());
+            save();
+        }
+    }
+
+    private void updateEpicFields(int epicId) {
+        Epic epic = getEpicById(epicId);
+        if (epic != null) {
+            List<Subtask> subtasks = getEpicSubtasks(epicId);
+            epic.updateEpicFields(subtasks);
+        }
     }
 
     public void save() {
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
-            writer.write("id,type,name,status,description,epic");
+            writer.write("id,type,name,status,description,duration,startTime,epic");
             writer.newLine();
 
             for (Task task : getAllTasks()) {

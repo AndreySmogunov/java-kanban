@@ -10,7 +10,7 @@ class EpicTest {
     void createEpic() {
         int id = 0;
         TaskStatus status = null;
-        Epic epic = new Epic(id, "Test Epic", "Test Description", status);
+        Epic epic = new Epic("Test Epic", "Test Description");
         assertEquals("Test Epic", epic.getName(), "Epic name should be set correctly.");
         assertEquals("Test Description", epic.getDescription(), "Epic description should be set correctly.");
     }
@@ -19,7 +19,7 @@ class EpicTest {
     void addSubtaskId() {
         int id = 0;
         TaskStatus status = null;
-        Epic epic = new Epic(id, "Test Epic", "Test Description", status);
+        Epic epic = new Epic("Test Epic", "Test Description");
         epic.addSubtaskId(1);
         assertEquals(1, epic.getSubtaskIds().size(), "Subtask ID should be added to the epic.");
     }
