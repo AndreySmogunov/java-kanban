@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class InMemoryTaskManager implements TaskManager {
@@ -173,26 +174,20 @@ public class InMemoryTaskManager implements TaskManager {
     public void deleteEpicById(int id) {
         Epic epic = epics.remove(id);
         if (epic != null) {
-            for (int subtaskId : epic.getSubtaskIds()) {
+            epic.getSubtaskIds().forEach(subtaskId -> {
                 Subtask subtask = subtasks.remove(subtaskId);
                 if (subtask != null && subtask.getStartTime() != null) {
                     prioritizedTasks.remove(new PrioritizedTask(subtask));
                 }
-            }
+            });
         }
     }
 
     @Override
     public List<Subtask> getEpicSubtasks(int epicId) {
-        Epic epic = epics.get(epicId);
-        if (epic != null) {
-            List<Subtask> epicSubtasks = new ArrayList<>();
-            for (int subtaskId : epic.getSubtaskIds()) {
-                epicSubtasks.add(subtasks.get(subtaskId));
-            }
-            return epicSubtasks;
-        }
-        return new ArrayList<>();
+        return epics.get(epicId).getSubtaskIds().stream()
+                .map(subtasks::get)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -202,11 +197,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getPrioritizedTasks() {
-        List<Task> sortedTasks = new ArrayList<>();
-        for (PrioritizedTask prioritizedTask : prioritizedTasks) {
-            sortedTasks.add(prioritizedTask.getTask());
-        }
-        return sortedTasks;
+        return prioritizedTasks.stream()
+                .map(PrioritizedTask::getTask)
+                .collect(Collectors.toList());
     }
 
     private boolean isTaskOverlapping(Task task) {
