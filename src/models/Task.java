@@ -109,4 +109,11 @@ public class Task {
                 return new Task(id, name, description, status, duration, startTime);
         }
     }
+
+    public static boolean isOverlapping(Task task1, Task task2) {
+        if (task1.getStartTime() == null || task1.getEndTime() == null || task2.getStartTime() == null || task2.getEndTime() == null) {
+            return false;
+        }
+        return task1.getStartTime().isBefore(task2.getEndTime()) && task2.getStartTime().isBefore(task1.getEndTime());
+    }
 }

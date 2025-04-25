@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 public class InMemoryTaskManager implements TaskManager {
     private int nextId = 1;
@@ -46,6 +47,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void createTask(Task task) {
+        if (isTaskOverlapping(task)) {
+            throw new IllegalArgumentException("Задача пересекается с существующими задачами.");
+        }
         task.setId(nextId++);
         tasks.put(task.getId(), task);
         if (task.getStartTime() != null) {
@@ -55,6 +59,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateTask(Task task) {
+        if (isTaskOverlapping(task)) {
+            throw new IllegalArgumentException("Задача пересекается с существующими задачами.");
+        }
         tasks.put(task.getId(), task);
         if (task.getStartTime() != null) {
             prioritizedTasks.add(new PrioritizedTask(task));
@@ -91,6 +98,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void createSubtask(Subtask subtask) {
+        if (isTaskOverlapping(subtask)) {
+            throw new IllegalArgumentException("Подзадача пересекается с существующими задачами.");
+        }
         subtask.setId(nextId++);
         subtasks.put(subtask.getId(), subtask);
         Epic epic = epics.get(subtask.getEpicId());
@@ -104,6 +114,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateSubtask(Subtask subtask) {
+        if (isTaskOverlapping(subtask)) {
+            throw new IllegalArgumentException("Подзадача пересекается с существующими задачами.");
+        }
         subtasks.put(subtask.getId(), subtask);
         if (subtask.getStartTime() != null) {
             prioritizedTasks.add(new PrioritizedTask(subtask));
@@ -194,5 +207,11 @@ public class InMemoryTaskManager implements TaskManager {
             sortedTasks.add(prioritizedTask.getTask());
         }
         return sortedTasks;
+    }
+
+    private boolean isTaskOverlapping(Task task) {
+        return Stream.concat(tasks.values().stream(), subtasks.values().stream())
+                .filter(t -> t.getId() != task.getId())
+                .anyMatch(t -> Task.isOverlapping(task, t));
     }
 }
