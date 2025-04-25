@@ -1,10 +1,8 @@
-// src/test/java/test/HistoryManagerTest.java
 package test;
 
 import logic.HistoryManager;
 import logic.InMemoryHistoryManager;
 import models.Task;
-import models.TaskStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
