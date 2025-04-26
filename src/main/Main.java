@@ -1,4 +1,3 @@
-// src/main/java/Main.java
 package main;
 
 import logic.Managers;
@@ -305,7 +304,7 @@ public class Main {
             epic.setName(name);
             epic.setDescription(description);
             taskManager.updateEpic(epic);
-            System.out.println("Эпик обновлен.");
+            System.out.println("Эпик с ID " + epic.getId() + " обновлен.");
         } else {
             System.out.println("Эпик с таким ID не найден.");
         }
