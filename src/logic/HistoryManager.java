@@ -1,4 +1,3 @@
-// logic/HistoryManager.java
 package logic;
 
 import models.Task;

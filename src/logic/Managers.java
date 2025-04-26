@@ -1,12 +1,13 @@
 package logic;
 
-public class Managers {
+import java.nio.file.Path;
 
+public class Managers {
     public static TaskManager getDefault() {
-        return new InMemoryTaskManager(getDefaultHistory());
+        return new InMemoryTaskManager(new InMemoryHistoryManager());
     }
 
-    public static HistoryManager getDefaultHistory() {
-        return new InMemoryHistoryManager();
+    public static TaskManager getFileBackedTaskManager(Path filePath) {
+        return new FileBackedTaskManager(filePath);
     }
 }
