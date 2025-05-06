@@ -1,4 +1,3 @@
-// src/main/java/models/PrioritizedTask.java
 package models;
 
 import java.time.LocalDateTime;

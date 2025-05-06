@@ -1,5 +1,6 @@
 package logic;
 
+import exceptions.NotFoundException;
 import models.Epic;
 import models.PrioritizedTask;
 import models.Subtask;
@@ -39,16 +40,17 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Task getTaskById(int id) {
         Task task = tasks.get(id);
-        if (task != null) {
-            historyManager.add(task);
+        if (task == null) {
+            throw new NotFoundException("Task not found");
         }
+        historyManager.add(task);
         return task;
     }
 
     @Override
     public void createTask(Task task) {
         if (isTaskOverlapping(task)) {
-            throw new IllegalArgumentException("Задача пересекается с существующими задачами.");
+            throw new IllegalArgumentException("Task overlaps with existing tasks");
         }
         task.setId(nextId++);
         tasks.put(task.getId(), task);
@@ -60,7 +62,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateTask(Task task) {
         if (isTaskOverlapping(task)) {
-            throw new IllegalArgumentException("Задача пересекается с существующими задачами.");
+            throw new IllegalArgumentException("Task overlaps with existing tasks");
         }
         tasks.put(task.getId(), task);
         if (task.getStartTime() != null) {
@@ -90,16 +92,17 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Subtask getSubtaskById(int id) {
         Subtask subtask = subtasks.get(id);
-        if (subtask != null) {
-            historyManager.add(subtask);
+        if (subtask == null) {
+            throw new NotFoundException("Subtask not found");
         }
+        historyManager.add(subtask);
         return subtask;
     }
 
     @Override
     public void createSubtask(Subtask subtask) {
         if (isTaskOverlapping(subtask)) {
-            throw new IllegalArgumentException("Подзадача пересекается с существующими задачами.");
+            throw new IllegalArgumentException("Subtask overlaps with existing tasks");
         }
         subtask.setId(nextId++);
         subtasks.put(subtask.getId(), subtask);
@@ -115,7 +118,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateSubtask(Subtask subtask) {
         if (isTaskOverlapping(subtask)) {
-            throw new IllegalArgumentException("Подзадача пересекается с существующими задачами.");
+            throw new IllegalArgumentException("Subtask overlaps with existing tasks");
         }
         subtasks.put(subtask.getId(), subtask);
         if (subtask.getStartTime() != null) {
@@ -152,9 +155,10 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Epic getEpicById(int id) {
         Epic epic = epics.get(id);
-        if (epic != null) {
-            historyManager.add(epic);
+        if (epic == null) {
+            throw new NotFoundException("Epic not found");
         }
+        historyManager.add(epic);
         return epic;
     }
 
