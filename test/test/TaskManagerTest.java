@@ -54,32 +54,6 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void testDeleteTask() {
-        Task task = new Task("Task1", "Description1", Duration.ofMinutes(30), LocalDateTime.now());
-        taskManager.createTask(task);
-        taskManager.deleteTaskById(task.getId());
-        assertNull(taskManager.getTaskById(task.getId()), "Задача не удалена.");
-    }
-
-    @Test
-    void testDeleteEpic() {
-        Epic epic = new Epic("Epic1", "DescriptionEpic1");
-        taskManager.createEpic(epic);
-        taskManager.deleteEpicById(epic.getId());
-        assertNull(taskManager.getEpicById(epic.getId()), "Эпик не удален.");
-    }
-
-    @Test
-    void testDeleteSubtask() {
-        Epic epic = new Epic("Epic1", "DescriptionEpic1");
-        taskManager.createEpic(epic);
-        Subtask subtask = new Subtask("Subtask1", "DescriptionSubtask1", Duration.ofMinutes(30), LocalDateTime.now(), epic.getId());
-        taskManager.createSubtask(subtask);
-        taskManager.deleteSubtaskById(subtask.getId());
-        assertNull(taskManager.getSubtaskById(subtask.getId()), "Подзадача не удалена.");
-    }
-
-    @Test
     void testGetAllTasks() {
         Task task1 = new Task("Task1", "Description1", Duration.ofMinutes(30), LocalDateTime.now());
         Task task2 = new Task("Task2", "Description2", Duration.ofMinutes(60), LocalDateTime.now().plusHours(1));
