@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="net.thauvin.erik.httpstatus" type="repository">
+    <properties maven-id="net.thauvin.erik.httpstatus:httpstatus:1.1.1" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/httpstatus-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.servlet-api-6.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.servlet.jsp-api-3.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.el-api-6.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
