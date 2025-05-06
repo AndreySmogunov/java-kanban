@@ -1,0 +1,23 @@
+<component name="libraryTable">
+  <library name="br.uol.reconf.spring" type="repository">
+    <properties maven-id="br.com.uol.reconf:reconf-spring:2.1.16" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/reconf-spring-2.1.16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/reconf-client-2.1.16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/reconf-infra-2.1.16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-collections4-4.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-io-2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-dbcp-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-pool-1.5.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hsqldb-2.3.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/httpclient-4.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-logging-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/httpcore-4.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

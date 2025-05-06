@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="webjars.locator" type="repository">
+    <properties maven-id="org.webjars:webjars-locator:0.30" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/webjars-locator-0.30.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/webjars-locator-core-0.30.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-compress-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-databind-2.3.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.3.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

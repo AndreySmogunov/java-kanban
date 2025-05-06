@@ -44,7 +44,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
           <root url="file://$MODULE_DIR$" />
@@ -56,5 +56,15 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="google.code.gson" level="project" />
+    <orderEntry type="library" exported="" name="springframework.amqp.spring" level="project" />
+    <orderEntry type="library" exported="" name="frontegg.sdk.spring.autoconfigure" level="project" />
+    <orderEntry type="library" exported="" name="br.uol.reconf.spring" level="project" />
+    <orderEntry type="library" exported="" name="frontegg.sdk.spring.identity.context.resolver" level="project" />
+    <orderEntry type="library" exported="" name="io.springfox.core" level="project" />
+    <orderEntry type="library" exported="" name="webjars.locator" level="project" />
+    <orderEntry type="library" exported="" name="fr.opensagres.xdocreport.springframework.web.servlet.view" level="project" />
+    <orderEntry type="library" exported="" name="springframework.build.aws.maven" level="project" />
+    <orderEntry type="library" exported="" name="cn.ipokerface.spring.web" level="project" />
   </component>
 </module>

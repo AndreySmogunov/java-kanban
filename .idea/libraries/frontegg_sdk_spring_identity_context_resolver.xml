@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="frontegg.sdk.spring.identity.context.resolver" type="repository">
+    <properties maven-id="com.frontegg.sdk.spring:spring-frontegg-identity-context-resolver:0.0.10" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/spring-frontegg-identity-context-resolver-0.0.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/java-jwt-3.18.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-databind-2.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-2.0.13.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
