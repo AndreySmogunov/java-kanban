@@ -11,7 +11,7 @@ public class Task {
     private Duration duration;
     private LocalDateTime startTime;
 
-    public Task(String name, String description, Duration duration, LocalDateTime startTime) {
+    public Task(String name, String description, Duration duration, LocalDateTime startTime, Object o) {
         this.name = name;
         this.description = description;
         this.status = TaskStatus.NEW;

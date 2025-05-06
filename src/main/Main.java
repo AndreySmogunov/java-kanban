@@ -40,21 +40,21 @@ public class Main {
         TaskManager taskManager = Managers.getDefault();
 
         // Создаем задачи с новыми полями duration и startTime
-        Task task1 = new Task("Задача 1", "Описание задачи 1", Duration.ofMinutes(30), LocalDateTime.now());
+        Task task1 = new Task("Задача 1", "Описание задачи 1", Duration.ofMinutes(30), LocalDateTime.now(), null);
         taskManager.createTask(task1);
-        Task task2 = new Task("Задача 2", "Описание задачи 2", Duration.ofMinutes(60), LocalDateTime.now().plusHours(1));
+        Task task2 = new Task("Задача 2", "Описание задачи 2", Duration.ofMinutes(60), LocalDateTime.now().plusHours(1), null);
         taskManager.createTask(task2);
 
         Epic epic1 = new Epic("Эпик 1", "Описание эпика 1");
         taskManager.createEpic(epic1);
 
-        Subtask subtask1 = new Subtask("Подзадача 1", "Подзадача эпика 1", Duration.ofMinutes(45), LocalDateTime.now().plusHours(2), epic1.getId());
+        Subtask subtask1 = new Subtask("Подзадача 1", "Подзадача эпика 1", TaskStatus.NEW, Duration.ofMinutes(45), LocalDateTime.now().plusHours(2), epic1.getId());
         try {
             taskManager.createSubtask(subtask1);
         } catch (IllegalArgumentException e) {
             System.out.println("Ошибка при создании подзадачи: " + e.getMessage());
         }
-        Subtask subtask2 = new Subtask("Подзадача 2", "Подзадача эпика 1", Duration.ofMinutes(30), LocalDateTime.now().plusHours(3), epic1.getId());
+        Subtask subtask2 = new Subtask("Подзадача 2", "Подзадача эпика 1", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now().plusHours(3), epic1.getId());
 
         try {
             taskManager.createSubtask(subtask2);
@@ -64,7 +64,7 @@ public class Main {
 
         Epic epic2 = new Epic("Эпик 2", "Описание эпика 2");
         taskManager.createEpic(epic2);
-        Subtask subtask3 = new Subtask("Подзадача 3", "Подзадача эпика 2", Duration.ofMinutes(60), LocalDateTime.now().plusHours(4), epic2.getId());
+        Subtask subtask3 = new Subtask("Подзадача 3", "Подзадача эпика 2", TaskStatus.NEW, Duration.ofMinutes(60), LocalDateTime.now().plusHours(4), epic2.getId());
         try {
             taskManager.createSubtask(subtask3);
         } catch (IllegalArgumentException e) {
@@ -182,7 +182,7 @@ public class Main {
         System.out.println("Введите дату и время начала задачи (формат: yyyy-MM-ddTHH:mm):");
         String startTimeStr = scanner.nextLine();
         LocalDateTime startTime = LocalDateTime.parse(startTimeStr);
-        Task task = new Task(name, description, Duration.ofMinutes(durationMinutes), startTime);
+        Task task = new Task(name, description, Duration.ofMinutes(durationMinutes), startTime, null);
         taskManager.createTask(task);
         System.out.println("Задача добавлена с ID: " + task.getId());
     }
@@ -212,7 +212,7 @@ public class Main {
         int epicId = scanner.nextInt();
         scanner.nextLine();
         try {
-            Subtask subtask = new Subtask(name, description, Duration.ofMinutes(durationMinutes), startTime, epicId);
+            Subtask subtask = new Subtask(name, description, TaskStatus.NEW, Duration.ofMinutes(durationMinutes), startTime, epicId);
             taskManager.createSubtask(subtask);
             System.out.println("Подзадача добавлена с ID: " + subtask.getId());
         } catch (IllegalArgumentException e) {

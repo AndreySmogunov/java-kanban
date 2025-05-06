@@ -22,8 +22,8 @@ public class HistoryManagerTest {
 
     @Test
     void testAddAndGetHistory() {
-        Task task1 = new Task("Task1", "Description1", Duration.ofMinutes(30), LocalDateTime.now());
-        Task task2 = new Task("Task2", "Description2", Duration.ofMinutes(60), LocalDateTime.now().plusHours(1));
+        Task task1 = new Task("Task1", "Description1", Duration.ofMinutes(30), LocalDateTime.now(), null);
+        Task task2 = new Task("Task2", "Description2", Duration.ofMinutes(60), LocalDateTime.now().plusHours(1), null);
 
         historyManager.add(task1);
         historyManager.add(task2);

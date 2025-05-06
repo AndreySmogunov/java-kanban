@@ -26,7 +26,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     void testAddAndGetTask() {
-        Task task = new Task("Task1", "Description1", Duration.ofMinutes(30), LocalDateTime.now());
+        Task task = new Task("Task1", "Description1", Duration.ofMinutes(30), LocalDateTime.now(), null);
         taskManager.createTask(task);
         Task retrievedTask = taskManager.getTaskById(task.getId());
         assertNotNull(retrievedTask, "Задача не найдена.");
@@ -46,7 +46,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     void testAddAndGetSubtask() {
         Epic epic = new Epic("Epic1", "DescriptionEpic1");
         taskManager.createEpic(epic);
-        Subtask subtask = new Subtask("Subtask1", "DescriptionSubtask1", Duration.ofMinutes(30), LocalDateTime.now(), epic.getId());
+        Subtask subtask = new Subtask("Subtask1", "DescriptionSubtask1", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now(), epic.getId());
         taskManager.createSubtask(subtask);
         Subtask retrievedSubtask = taskManager.getSubtaskById(subtask.getId());
         assertNotNull(retrievedSubtask, "Подзадача не найдена.");
@@ -55,8 +55,8 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     void testGetAllTasks() {
-        Task task1 = new Task("Task1", "Description1", Duration.ofMinutes(30), LocalDateTime.now());
-        Task task2 = new Task("Task2", "Description2", Duration.ofMinutes(60), LocalDateTime.now().plusHours(1));
+        Task task1 = new Task("Task1", "Description1", Duration.ofMinutes(30), LocalDateTime.now(), null);
+        Task task2 = new Task("Task2", "Description2", Duration.ofMinutes(60), LocalDateTime.now().plusHours(1), null);
         taskManager.createTask(task1);
         taskManager.createTask(task2);
         List<Task> tasks = taskManager.getAllTasks();
@@ -81,8 +81,8 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     void testGetAllSubtasks() {
         Epic epic = new Epic("Epic1", "DescriptionEpic1");
         taskManager.createEpic(epic);
-        Subtask subtask1 = new Subtask("Subtask1", "DescriptionSubtask1", Duration.ofMinutes(30), LocalDateTime.now(), epic.getId());
-        Subtask subtask2 = new Subtask("Subtask2", "DescriptionSubtask2", Duration.ofMinutes(60), LocalDateTime.now().plusHours(1), epic.getId());
+        Subtask subtask1 = new Subtask("Subtask1", "DescriptionSubtask1", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now(), epic.getId());
+        Subtask subtask2 = new Subtask("Subtask2", "DescriptionSubtask2", TaskStatus.NEW, Duration.ofMinutes(60), LocalDateTime.now().plusHours(1), epic.getId());
         taskManager.createSubtask(subtask1);
         taskManager.createSubtask(subtask2);
         List<Subtask> subtasks = taskManager.getAllSubtasks();
@@ -96,11 +96,11 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         Epic epic = new Epic("Epic1", "DescriptionEpic1");
         taskManager.createEpic(epic);
 
-        Subtask subtask1 = new Subtask("Subtask1", "DescriptionSubtask1", Duration.ofMinutes(30), LocalDateTime.now(), epic.getId());
+        Subtask subtask1 = new Subtask("Subtask1", "DescriptionSubtask1", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now(), epic.getId());
         subtask1.setStatus(TaskStatus.NEW);
         taskManager.createSubtask(subtask1);
 
-        Subtask subtask2 = new Subtask("Subtask2", "DescriptionSubtask2", Duration.ofMinutes(60), LocalDateTime.now().plusHours(1), epic.getId());
+        Subtask subtask2 = new Subtask("Subtask2", "DescriptionSubtask2", TaskStatus.NEW, Duration.ofMinutes(60), LocalDateTime.now().plusHours(1), epic.getId());
         subtask2.setStatus(TaskStatus.DONE);
         taskManager.createSubtask(subtask2);
 
@@ -115,11 +115,11 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     void testTaskOverlap() {
-        Task task1 = new Task("Task1", "Description1", Duration.ofMinutes(30), LocalDateTime.now());
-        Task task2 = new Task("Task2", "Description2", Duration.ofMinutes(60), LocalDateTime.now().plusMinutes(15));
+        Task task1 = new Task("Task1", "Description1", Duration.ofMinutes(30), LocalDateTime.now(), null);
+        Task task2 = new Task("Task2", "Description2", Duration.ofMinutes(60), LocalDateTime.now().plusMinutes(15), null);
         assertTrue(Task.isOverlapping(task1, task2), "Задачи должны пересекаться.");
 
-        Task task3 = new Task("Task3", "Description3", Duration.ofMinutes(30), LocalDateTime.now().plusMinutes(30));
+        Task task3 = new Task("Task3", "Description3", Duration.ofMinutes(30), LocalDateTime.now().plusMinutes(30), null);
         assertFalse(Task.isOverlapping(task1, task3), "Задачи не должны пересекаться.");
     }
 }

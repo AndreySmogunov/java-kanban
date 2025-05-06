@@ -6,13 +6,13 @@ import java.time.LocalDateTime;
 public class Subtask extends Task {
     private int epicId;
 
-    public Subtask(String name, String description, Duration duration, LocalDateTime startTime, int epicId) {
-        super(name, description, duration, startTime);
+    public Subtask(String name, String description, TaskStatus aNew, Duration duration, LocalDateTime startTime, int epicId) {
+        super(name, description, duration, startTime, null);
         this.epicId = epicId;
     }
 
     public Subtask(int id, String name, String description, TaskStatus status, Duration duration, LocalDateTime startTime, int epicId) {
-        super(name, description, duration, startTime);
+        super(name, description, duration, startTime, null);
         this.setId(id);
         this.setStatus(status);
         this.epicId = epicId;
