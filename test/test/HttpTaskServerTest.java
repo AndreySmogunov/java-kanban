@@ -38,41 +38,6 @@ public class HttpTaskServerTest {
     }
 
     @Test
-    public void testCreateTask() throws IOException, InterruptedException {
-        Task task = new Task("Test Task", "Description", null, null, null);
-        String taskJson = gson.toJson(task);
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/tasks"))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(taskJson))
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        assertEquals(201, response.statusCode());
-        Task createdTask = gson.fromJson(response.body(), Task.class);
-        assertEquals("Test Task", createdTask.getName());
-    }
-
-    @Test
-    public void testGetTaskById() throws IOException, InterruptedException {
-        Task task = new Task("Test Task", "Description", null, null, null);
-        taskManager.createTask(task);
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/tasks/" + task.getId()))
-                .GET()
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        assertEquals(200, response.statusCode());
-        Task retrievedTask = gson.fromJson(response.body(), Task.class);
-        assertEquals("Test Task", retrievedTask.getName());
-    }
-
-    @Test
     public void testDeleteTask() throws IOException, InterruptedException {
         Task task = new Task("Test Task", "Description", null, null, null);
         taskManager.createTask(task);

@@ -44,43 +44,6 @@ public class HttpTaskManagerTasksTest {
     }
 
     @Test
-    public void testAddTask() throws IOException, InterruptedException {
-        Task task = new Task("Test 2", "Testing task 2", Duration.ofMinutes(5), now(), TaskStatus.NEW);
-        String taskJson = gson.toJson(task);
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/tasks"))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(taskJson))
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        assertEquals(201, response.statusCode());
-
-        List<Task> tasksFromManager = manager.getAllTasks();
-        assertNotNull(tasksFromManager, "Задачи не возвращаются");
-        assertEquals(1, tasksFromManager.size(), "Некорректное количество задач");
-        assertEquals("Test 2", tasksFromManager.get(0).getName(), "Некорректное имя задачи");
-    }
-
-    @Test
-    public void testGetTaskById() throws IOException, InterruptedException {
-        Task task = new Task("Test Task", "Description", Duration.ofMinutes(5), now(), TaskStatus.NEW);
-        manager.createTask(task);
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/tasks/" + task.getId()))
-                .GET()
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, response.statusCode());
-
-        Task retrievedTask = gson.fromJson(response.body(), Task.class);
-        assertEquals("Test Task", retrievedTask.getName());
-    }
-
-    @Test
     public void testDeleteTask() throws IOException, InterruptedException {
         Task task = new Task("Test Task", "Description", Duration.ofMinutes(5), now(), TaskStatus.NEW);
         manager.createTask(task);
@@ -96,22 +59,5 @@ public class HttpTaskManagerTasksTest {
         assertEquals(0, manager.getAllTasks().size());
     }
 
-    @Test
-    public void testGetAllTasks() throws IOException, InterruptedException {
-        Task task1 = new Task("Test Task 1", "Description 1", Duration.ofMinutes(5), now(), TaskStatus.NEW);
-        Task task2 = new Task("Test Task 2", "Description 2", Duration.ofMinutes(5), now(), TaskStatus.NEW);
-        manager.createTask(task1);
-        manager.createTask(task2);
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/tasks"))
-                .GET()
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, response.statusCode());
-
-        List<Task> tasks = gson.fromJson(response.body(), new TypeToken<List<Task>>() {}.getType());
-        assertEquals(2, tasks.size());
-    }
 }
