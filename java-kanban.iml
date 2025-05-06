@@ -66,5 +66,6 @@
     <orderEntry type="library" exported="" name="fr.opensagres.xdocreport.springframework.web.servlet.view" level="project" />
     <orderEntry type="library" exported="" name="springframework.build.aws.maven" level="project" />
     <orderEntry type="library" exported="" name="cn.ipokerface.spring.web" level="project" />
+    <orderEntry type="library" exported="" name="net.thauvin.erik.httpstatus" level="project" />
   </component>
 </module>
