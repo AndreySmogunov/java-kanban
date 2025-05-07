@@ -174,17 +174,21 @@ public class Main {
     private static void addTask(Scanner scanner, TaskManager taskManager) {
         System.out.println("Введите название задачи:");
         String name = scanner.nextLine();
+
         System.out.println("Введите описание задачи:");
         String description = scanner.nextLine();
+
         System.out.println("Введите продолжительность задачи в минутах:");
-        int durationMinutes = scanner.nextInt();
-        scanner.nextLine();
+        int durationMinutes = Integer.parseInt(scanner.nextLine());
+
         System.out.println("Введите дату и время начала задачи (формат: yyyy-MM-ddTHH:mm):");
         String startTimeStr = scanner.nextLine();
         LocalDateTime startTime = LocalDateTime.parse(startTimeStr);
+
         Task task = new Task(name, description, Duration.ofMinutes(durationMinutes), startTime, null);
         taskManager.createTask(task);
-        System.out.println("Задача добавлена с ID: " + task.getId());
+
+        System.out.println(String.format("Задача добавлена с ID: %d", task.getId()));
     }
 
     private static void addEpic(Scanner scanner, TaskManager taskManager) {
@@ -293,21 +297,25 @@ public class Main {
 
     private static void updateEpic(Scanner scanner, TaskManager taskManager) {
         System.out.println("Введите ID эпика для обновления:");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        Epic epic = taskManager.getEpicById(id);
-        if (epic != null) {
-            System.out.println("Введите новое название эпика:");
-            String name = scanner.nextLine();
-            System.out.println("Введите новое описание эпика:");
-            String description = scanner.nextLine();
-            epic.setName(name);
-            epic.setDescription(description);
-            taskManager.updateEpic(epic);
-            System.out.println("Эпик с ID " + epic.getId() + " обновлен.");
-        } else {
-            System.out.println("Эпик с таким ID не найден.");
+        int epicId = Integer.parseInt(scanner.nextLine());
+
+        Epic epic = taskManager.getEpicById(epicId);
+        if (epic == null) {
+            System.out.println("Эпик с указанным ID не найден.");
+            return;
         }
+
+        System.out.println("Введите новое название эпика:");
+        String name = scanner.nextLine();
+
+        System.out.println("Введите новое описание эпика:");
+        String description = scanner.nextLine();
+
+        epic.setName(name);
+        epic.setDescription(description);
+        taskManager.updateEpic(epic);
+
+        System.out.println(String.format("Эпик с ID %d обновлен.", epic.getId()));
     }
 
     private static void updateSubtask(Scanner scanner, TaskManager taskManager) {
