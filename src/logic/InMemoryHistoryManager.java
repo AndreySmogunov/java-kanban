@@ -1,4 +1,3 @@
-// logic/InMemoryHistoryManager.java
 package logic;
 
 import models.Task;
